@@ -1,0 +1,704 @@
+#program to book a vacation using a travel site
+
+#importing time
+
+import time
+
+#importing sys function too use for exit
+
+import sys
+
+#importing re for phoneno.
+
+import re
+
+#importing csv to keep package records
+
+import csv
+
+#opening a file with record of membership ids
+
+membershipfile=open("membershipfile.txt","w")
+
+#reporting only 3 membership numbers as of now
+    
+membershipnos="A,B,C"
+membershipfile.write(membershipnos)
+
+membershipfile.close()
+
+#writing the employee end of the code
+
+employee= input("Are you an agent from _ Travels? Yes/No: ")
+
+if employee=="yes":
+    print("Welcome!")
+    eno=int(input("Enter Employee number:"))
+
+    #checking for correct employee number
+
+    if eno==1001:
+        print("Welcome! Employee ", eno)
+
+        #menu based program for employee
+
+        print("MENU")
+        print("1. See membership records")
+        print("2. See past orders")
+        print("3. Exit")
+        menu=input("Type 1, 2 or 3: ")
+        
+        if menu=='1':
+            file=open("membershipfile.txt","r")
+            reading1= file.read()
+            print(reading1)
+            exit()
+
+        elif menu=='2':
+            file2=open("package.csv", "r")
+            reading2= file2.read()
+            print(reading2)
+            exit()
+
+        else:
+            print("Ok, Bye!")
+            exit()
+    else:
+        print("Sorry, wrong employee number...")
+        exit()
+        
+
+#declaring function to ask for membership number. using two times- once for check in and once for check out
+
+def membership():
+
+    '''time.sleep(2)'''
+    
+    ID=input("Please enter your Membership ID:")
+
+    membershipfile=open("membershipfile.txt", "r")
+    
+    for line in membershipfile:
+        if ID in line:
+            print("Membership ID found. Welcome!")
+
+            '''time.sleep(2)'''
+
+        else:
+            
+            print("Sorry, membership ID not found.")
+            sys.exit()
+
+    membershipfile.close()
+
+
+#adding project title, name and roll no.
+
+firstl="'''COMPUTER SCIENCE PROJECT'''"
+secondl="AUTOMATED VACATION PLANNER"
+thirdl="BY:"
+fourthl="OM BADIYANI AND OMKAR BHALERAO"
+fifthl="CLASS: XII A"
+sixthl="BATCH 2020-21"
+seventhl="LET US BEGIN...!!!"
+
+#center aligning the heading
+
+firstlc=firstl.center(100)
+secondlc=secondl.center(100)
+thirdlc=thirdl.center(100)
+fourthlc=fourthl.center(100)
+fifthlc=fifthl.center(100)
+sixthlc=sixthl.center(100)
+seventhlc=seventhl.center(100)
+
+#printing
+
+print("\n\n\n", firstlc)
+print(secondlc)
+print(thirdlc)
+print(fourthlc)
+print(fifthlc)
+print(sixthlc)
+print(seventhlc)
+
+
+#introduction and welcome message
+
+print("WELCOME TO _ TRAVELS!!!")
+a=input("Do you want to start planning out your amazing vacation? Type 'Yes' to continue: ")
+if a=="yes":
+
+#opening a file to store basic details
+
+    fileforbasicdetails=open("basicdetails.txt","a")
+
+#asking for basic details
+
+    print("Before starting, we would like to know some of your basic details, please")
+    name=input("Please enter your name: ")
+
+    #making sure that name consists of alphabat only
+
+    if name.isalpha():
+        print("Thank you!\n")
+    else:
+        print("A name can only consist of alphabets")
+
+        name=input("Please enter a valid name:")
+
+        if name.isalpha():
+            print("Thank you!\n")
+        else:
+            print("Sorry, name is not valid")
+            sys.exit
+            
+    city=input("Please enter your city of residence: ")
+    print("Thank you!\n")
+
+    #making sure that phoneno is valid
+
+    #input phone number
+
+    while True:
+      try:
+        phoneno = input("\nEnter phone number: ") 
+        if phoneno.isdigit() and len(phoneno)==10:
+          print("Phone number entered successfully!")
+          break;
+        else:
+          print("Phone number should consist of numeric values ONLY and should be of length 10 digits. Please try again...")      
+      except ValueError:
+        print("Provide a numeric value...")
+        continue
+
+
+    #entering basic details in the file
+
+    fileforbasicdetails.write(name)
+    fileforbasicdetails.write(", ")
+    fileforbasicdetails.write(city)
+    fileforbasicdetails.write(",")
+    fileforbasicdetails.write(phoneno)
+    fileforbasicdetails.write("\n\n")
+
+    fileforbasicdetails.close()
+
+
+    #you can add prime member feature...ask for prime membership number and add a discount at the end
+    print("\n\nWELCOME TO THE AUTOMATED PRICE CALCULATOR FOR YOUR VACATION")
+    print("\nPRESENTED BY _ TRAVELS")
+    goldmember=input("\n\nAre you a Gold Member?")
+    if goldmember=="yes":
+        membership()
+
+        '''time.sleep(2)'''
+
+        
+#add something to verify whether membership id exists. if it does not exist, use while loop to try again
+
+
+    #become a member
+
+    elif goldmember=="no":
+        becomingmember=input("You are not a Gold Member. Would you like to purchase a membership? Type 'yes' or 'no'\n")
+        if becomingmember=="yes":
+            print("Thank you so much for choosing to be a member of _ travels")
+            print("Please select the duration of your membership")
+            print("1. 1 month- $50")
+            print("2. 6 month- $250")
+            print("3. 1 year- $400")
+            membershipplan=int(input("Select your membership plan:"))
+            if membershipplan==1:
+                print("Thank you for selecting the 1 month membership plan!")
+                
+            elif membershipplan==2:
+                print("Thank you for selecting the 6 month membership plan!")
+                
+            elif membershipplan==3:
+                print("Thank you for selecting the 1 year membership plan!")
+                
+            else:
+                print("Please select a valid choice")
+            print("One of our employees will contact you related to your membership soon...")
+
+            '''time.sleep(2)'''
+
+        elif becomingmember=="no":
+            print("No Problem...Let's continue...")
+
+        else:
+            print("Please select a valid choice")
+
+    else:
+        print("Invalid choice.")
+
+        
+    #selecting city
+
+    print("\n\n\nGreat! To start planning out your vacation, we first need a spot. Here's a list of cities where we offer services:")
+    print("1. Delhi\n2. Mumbai\n3. Kolkata\n4. Chennai\n5. Lucknow\n\n")
+    '''time.sleep(1)'''
+    city=int(input("\nUsing numbers from 1-5, select a city: "))
+    if city==1:
+            cityvariable="Delhi"
+            print("\nYou have selected Delhi!")
+    elif city==2:
+        cityvariable="Mumbai"
+        print("\nYou have selected Mumbai!")
+    elif city==3:
+        cityvariable="Kolkata"
+        print("\nYou have selected Kolkata!")
+    elif city==4:
+        cityvariable="Chennai"
+        print("\nYou have selected Chennai!")
+    elif city==5:
+        cityvariable="Lucknow"
+        print("\nYou have selected Lucknow!")
+    else:
+        print("Please enter a valid choice")
+
+    '''time.sleep(3)'''
+
+    
+    #selecting duration
+
+    print("------------------------------")
+    print("Select the number of days for your vacation")
+    print("1. 2 days")
+    print("2. 4 days")
+    print("3. 6 days")
+    duration=input("Using numbers 1-3, select the duration of you vacation")
+    if duration=="1":
+        durationvariable="2 days"
+    elif duration=="2":
+        durationvariable="4 days"
+    elif duration=="3":
+        durationvariable="6 days"
+    else:
+        print("Please select a valid choice")
+                 
+    print("\nGreat! Your vacation is being scheduled for", durationvariable,"days")
+
+    '''time.sleep(3)'''
+
+
+    #selecting no. of people
+
+    print("------------------------------")
+
+    #limiting the size for ease in package calculation
+
+    print("Important Notice: The Package can be designed for upto 4 persons only.")
+    print("If you wish to design a travel package for more than 4 persons, please contact our office for our custom package service.")
+    
+    changeofsize=int(input("\n\n\nThank you for being cooperative. Please mention the number of people that would be part of this vacation package:"))
+
+    print("\nThank you! The vacation package is being prepared for", changeofsize,"members")
+
+    '''time.sleep(3)'''
+
+    
+    #asking for budget
+
+    print("------------------------------")
+    print("\n\n\nNow, we would like to know the amount of money you want to spend for your vacation.\nHere are your options:\n")
+    print("1. <$100\n2. <$500\n3. <$1000\n")
+
+    '''time.sleep(1)'''
+
+    budget=int(input("Using numbers from 1-3, select your budget:"))
+    if budget==1:
+        budgetvariable="$100"
+        print("Your budget is below $100.")
+    elif budget==2:
+        budgetvariable="$500"
+        print("Your budget is below $500.")
+    elif budget==3:
+        budgetvariable="$1000"
+        print("Your budget is below $1000.")
+    else:
+        print("Please enter a valid choice")
+
+
+        
+    #confirmation message
+        
+    print("------------------------------")
+    print("Here are your final details:\n")
+    print("Vacation to:", cityvariable)
+    print("\nFor", durationvariable,"days")
+    print("\nFor",changeofsize,"people")
+    print("\nWithin", budgetvariable)
+
+
+
+    #asking for any changes
+
+    doyouwishtochange=input("Do you wish to change anything or do you want to continue? Type 'change' or 'continue' to select.")
+
+    if doyouwishtochange=="change":
+        
+        #asking which element to change
+
+        print("Which element would you like to change?")
+        print("1. City\n2. Duration of vacation\n3. Number of people\n4. Budget")
+        changeofelement=input("Using numbers from 1-4, select the element that you would like to change:")
+
+        #changing city
+
+        if changeofelement=="1":
+            print("Your current city is", cityvariable)
+            print("What would you like to change it to?")
+            print("1. Delhi\n2. Mumbai\n3. Koklata\n4. Chennai\n5. Lucknow")
+            changeofcity=input("Using numbers 1-4, indicate what your destination is: ")
+            if changeofcity=="1":
+                cityvariable="Delhi"
+            elif changeofcity=="2":
+                cityvariable="Mumbai"
+            elif changeofcity=="3":
+                cityvariable="Kolkata"
+            elif changeofcity=="4":
+                cityvariable="Chennai"
+            elif changeofcity=="5":
+                cityvariable="Lucknow"
+            else:
+                print("Please select a valid choice")
+            print("City changed to", cityvariable)
+
+        #changing duration
+
+        elif changeofelement=="2":
+            print("Your current duration is", durationvariable)
+            print("What would you like to change it to?")
+            print("1. 2 days\n2. 4 days\n3. 6 days")
+            changeofduration=input("Using numbers 1-3, indicate what your duration of vacation is: ")
+            if changeofduration=="1":
+                durationvariable="2 days"
+            elif changeofduration=="2":
+                durationvariable="4 days"
+            elif changeofduration=="3":
+                durationvariable="6 days"
+            else:
+                print("Please enter a valid choice")
+            print("Duration of vacation changed to", durationvariable)
+
+        #changing number of people
+            
+        elif changeofelement=="3":
+            print("Current number of people: ", changeofsize)
+            changeofsize=int(input("What is the new number of travelers?: "))
+            print("Number of travelers changed to", changeofsize)
+
+        #changing budget
+
+        elif changeofelement=="4":
+            print("Current budget=", budgetvariable)
+            print("What would you like to change your budget to?")
+            print("1. <$100\n2. <$500\n3. <$1000\n")
+            changeofbudget=input("Using numbers 1-3, indicate what your new budget is: ")
+            if changeofbudget=="1":
+                budgetvariable="$100"
+            elif changeofbudget=="2":
+                budgetvariable="$500"
+            elif changeofbudget=="3":
+                budgetvariable="$1000"
+            else:
+                print("Please enter a valid choice")
+            print("Budget changed to", budgetvariable)
+
+        else:
+            print("Please select a valid choice")
+
+
+        #confirmation message after 1st change
+        
+            print("------------------------------")
+            print("Here are your final details:\n")
+            print("Vacation to:", cityvariable)
+            print("\nFor", durationvariable,"days")
+            print("\nFor",changeofsize,"people")
+            print("\nWithin", budgetvariable)
+
+        #asking if any other change is required
+      doyouwishtochangeanelementpart2=input("Do you wish to make any more changes? Type 'change' or 'continue' to select.")
+
+        if doyouwishtochangeanelementpart2=="change":
+
+            #asking which element to change
+
+            print("Which element would you like to change?")
+            print("1. City\n2. Duration of vacation\n3. Number of people\n4. Budget")
+            changeofelement=input("Using numbers from 1-4, select the element that you would like to change:")
+
+            #changing city
+    
+            if changeofelement=="1":
+                print("Your current city is", cityvariable)
+                print("What would you like to change it to?")
+                print("1. Delhi\n2. Mumbai\n3. Koklata\n4. Chennai\n5. Lucknow")
+                changeofcity=input("Using numbers 1-4, indicate what your destination is: ")
+                if changeofcity=="1":
+                    cityvariable="Delhi"
+                elif changeofcity=="2":
+                    cityvariable="Mumbai"
+                elif changeofcity=="3":
+                    cityvariable="Kolkata"
+                elif changeofcity=="4":
+                    cityvariable="Chennai"
+                elif changeofcity=="5":
+                    cityvariable="Lucknow"
+                else:
+                    print("Please select a valid choice")
+                print("City changed to", cityvariable)
+    
+            #changing duration
+    
+            elif changeofelement=="2":
+                print("Your current duration is", durationvariable)
+                print("What would you like to change it to?")
+                print("1. 2 days\n2. 4 days\n3. 6 days")
+                changeofduration=input("Using numbers 1-3, indicate what your duration of vacation is: ")
+                if changeofduration=="1":
+                    durationvariable="2 days"
+                elif changeofduration=="2":
+                    durationvariable="4 days"
+                elif changeofduration=="3":
+                    durationvariable="6 days"
+                else:
+                    print("Please enter a valid choice")
+                print("Duration of vacation changed to", durationvariable)
+
+            #changing number of people
+            
+            elif changeofelement=="3":
+                print("Current number of people: ", changeofsize)
+                changeofsize=int(input("What is the new number of travelers?: "))
+                print("Number of travelers changed to", changeofsize)
+
+            #changing budget
+    
+            elif changeofelement=="4":
+                print("Current budget=", budgetvariable)
+                print("What would you like to change your budget to?")
+                print("1. <$100\n2. <$500\n3. <$1000\n")
+                changeofbudget=input("Using numbers 1-3, indicate what your new budget is: ")
+                if changeofbudget=="1":
+                    budgetvariable="$100"
+                elif changeofbudget=="2":
+                    budgetvariable="$500"
+                elif changeofbudget=="3":
+                    budgetvariable="$1000"
+                else:
+                    print("Please enter a valid choice")
+                print("Budget changed to", budgetvariable)
+
+            else:
+                print("Please select a valid choice")
+
+
+        elif doyouwishtochangeanelementpart2=="continue":
+            print("Okay, lets continue")
+
+            print("\n\n\nPlease wait while we finalise your trip information. This may take a few seconds")
+
+            '''
+time.sleep(10)'''
+
+        else:
+            print("Please select a valid choice")
+
+
+        #confirmation message after 2nd change
+        
+            print("------------------------------")
+            print("Here are your final details:\n")
+            print("Vacation to:", cityvariable)
+            print("\nFor", durationvariable,"days")
+            print("\nFor",changeofsize,"people")
+            print("\nWithin", budgetvariable)
+
+
+    #no changes required
+
+    elif doyouwishtochange=="continue":
+
+        print("\n\n\nPlease wait while we finalise your trip information. This may take a few seconds")
+
+        '''time.sleep(10)'''
+     
+    
+    #calculating package using formula
+
+    #for budget <$100
+    
+    if budgetvariable=="$100":
+        if durationvariable=="2 days":
+            if changeofsize==1 or 2:
+                totalcost=25*2*changeofsize
+                hotel='Viva Vida Resort'
+                star= '4 stars'
+                                
+            elif changeofsize==3 or 4:
+                totalcost=12*2*changeofsize
+                hotel= 'Lotus Hotel'
+                star= '3 stars'
+                
+        elif durationvariable=="4 days":
+            if changeofsize==1 or 2:
+                totalcost=12*4*changeofsize
+                hotel= 'Lotus Hotel'
+                star= '3 stars'
+                
+            elif changeofsize==3 or 4:
+                totalcost=6*4*changeofsize
+                hotel= 'Lotus Hotel'
+                star= '3 stars'
+                
+        elif durationvariable=="6 days":
+            if changeofsize==1 or 2:
+                totalcost=8*6*changeofsize
+                hotel= 'Lotus Hotel'
+                star= '3 stars'
+                
+            elif changeofsize==3 or 4:
+                totalcost=4*6*changeofsize
+                hotel= 'Lotus Hotel'
+                star= '3 stars'
+             
+        print("Cost of your travel will be: ", totalcost)
+
+       
+    #for budget <$500
+
+    elif budgetvariable=="$500":
+        if durationvariable=="2 days":
+            if changeofsize==1 or 2:
+                totalcost=100*2*changeofsize
+                hotel= 'Viva Vida Resort'
+                star= '4 stars'
+                
+            elif changeofsize==3 or 4:
+                totalcost=60*2*changeofsize                                              
+                hotel= 'Viva Vida Resort'
+                star='4 stars'
+                
+        elif durationvariable=="4 days":                                                        
+            if changeofsize==1 or 2:
+                totalcost=60*4*changeofsize
+                hotel= 'Viva Vida Resort'
+                star= '4 stars'
+                
+            elif changeofsize==3 or 4:
+                totalcost=30*4*changeofsize
+                hotel= 'ABC Star'
+                star='3 stars'
+                
+        elif durationvariable=="6 days":
+            if changeofsize==1 or 2:
+                totalcost=35*6*changeofsize
+                hotel='ABC Star'
+                star='3 stars'
+                
+            elif changeofsize==3 or 4:
+                totalcost=20*6*changeofsize
+                hotel='ABC Star'
+                star='3 stars'
+                
+        print("Cost of your travel will be: ", totalcost)
+
+
+    #for budget <$1000
+
+    elif budgetvariable=="$1000":
+        if durationvariable=="2 days":
+            if changeofsize==1 or 2:
+                totalcost=150*2*changeofsize
+                hotel= 'ABC Star'
+                star= '5 stars'
+                
+            elif changeofsize==3 or 4:
+                totalcost=100*2*changeofsize
+                hotel= 'ABC Star'
+                star='5 stars'
+                
+        elif durationvariable=="4 days":
+            if changeofsize==1 or 2:
+                totalcost=100*4*changeofsize
+                hotel= 'ABC Star'
+                star='5 stars'
+                
+            elif changeofsize==3 or 4:
+                totalcost=50*4*changeofsize
+                hotel= 'Viva Vida Resort'
+                star= '4 star'
+                
+        elif durationvariable=="6 days":
+            if changeofsize==1 or 2:
+                totalcost=70*6*changeofsize
+                hotel= 'Viva Vida Resort'
+                star= '4 stars'
+                
+            elif changeofsize==3 or 4:
+                totalcost=40*6*changeofsize
+                hotel= 'Viva Vida Resort'
+                star= '4 stars'
+               
+        print("Cost of your travel will be: ", totalcost)
+
+    
+    #printing the final message
+
+    print("\n\n\n***THIS IS YOUR FINAL PACKAGE***")
+
+    print("                          The vacation package has been prepared for",changeofsize, "persons")
+    print("                                            For a period of", durationvariable)
+    print("                                           You will be travelling to", cityvariable)
+    print("                                           Cost of your travel will be: ", totalcost)
+    print("                                       During this time, you will be staying in", hotel)
+    print("                                                  Hotel rating:", star)
+    print()
+    print()
+
+    #taking confirmation and checking out
+
+    print("Do you want to confirm this package?")
+
+    confirmation=input("Type 'yes' or 'no': ")
+
+    if confirmation=='yes':
+        print("***PACKAGE CONFIRMED!***")
+
+        #opening csv file to store the package information
+
+        packageinfo=open("package.csv", "w")
+        csv_writer=csv.writer(packageinfo)
+        info=[]
+        info.append(changeofsize)
+        info.append(durationvariable)
+        info.append(cityvariable)
+        info.append(totalcost)
+        info.append(hotel)
+        info.append(star)
+        packageinfo.close()
+
+        
+    elif confirmation=='no':
+        print("Okay, run the program again to design the package.")
+
+
+    else:
+        print("Invalid Response")
+        print("Please run the program to design the package")
+
+
+
+    print("THANK YOU FOR CHOOSING _ TRAVELS AS YOUR VACATION PLANNER! HOPE YOU HAVE A GREAT DAY!")
+
+else:
+    print("Okay. Bye!")
+
+
+
+    
+
